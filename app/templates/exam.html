@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+{% if nopermiso is defined %}
+<div class="alert alert-danger">
+    No tiene permiso. Reportando error al administrador.
+</div>
+{% else %}
+    {% if examenes is defined and examenes|count > 0 %}
+    <div id="no-more-tables">
+        <table class="table table-striped table-bordered table-hover model-list cf">
+            <thead class="cf">
+                <tr>
+                    <th class="span1">&nbsp;</th>
+                    <th class="column-header col-nombre">
+                        ID Sujeto
+                    </th>
+                    <th class="column-header col-nombre">
+                        Nota
+                    </th>
+                    <th class="column-header col-nombre">
+                        Respuestas
+                    </th>
+                    <th class="column-header col-nombre">
+                        Exámen
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in examenes %}
+                <tr>
+                    <td class="list-buttons-column">
+                        <form class="icon" method="POST" action="/delexam">
+                            <input id="id" name="id" required="" type="hidden" value="{{ e.id }}">
+                            <button onclick="return confirm('¿Estas seguro de querrer eliminar este exámen?');" title="Eliminar exámen">
+                                <span class="fa fa-trash glyphicon icon-trash"></span>
+                            </button>
+                        </form>  
+                    </td>
+                    
+                    <td class="col-nombre" data-title="Nombre">    
+                        {{ e.idSujeto }}
+                    </td>
+                    <td class="col-nombre" data-title="Nombre">    
+                        <b>{{ e.nota }}</b>
+                    </td>
+                    <td class="col-nombre" data-title="Nombre">    
+                        {{ e.respuestas }}
+                    </td>
+                    <form method="POST" action="/downexam">
+                        <input id="id" name="id" required="" type="hidden" value="{{ e.id }}">
+                            <td>
+                            <button>
+                                Descargar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <form method="POST" action="/downexamenes" class="admin-form form-horizontal">
+        <fieldset>
+            
+            <div class="control-group">
+                <div class="controls">
+                    <a class="btn btn-danger" href="{{ url_for('menu') }}" role="button">Volver</a>
+                        <input id="id" name="id" required="" type="hidden" value="{{ testid }}">
+                        <button type="submit" class="btn btn-primary">Descargar XML</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    {% else %}
+    <div class="alert alert-danger">
+        Actualmente no tiene ningún test asignado.
+    </div>
+    {% endif %}
+    <div id="no-more-tables">
+        <table class="table table-striped table-bordered table-hover model-list cf">
+            <thead class="cf">
+                <form action="" method="POST" enctype="multipart/form-data" class="admin-form form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <tr>
+                        <th class="column-header col-nombre">
+                                {{ form.test }}
+                                <input class="form-control-file" type="file" name="file[]" multiple="">
+                                <button type="submit" class="btn btn-info">Cargar Exámenes</button>
+                        </th>
+                    </tr>
+            </form>
+            </thead>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

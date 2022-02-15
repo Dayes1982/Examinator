@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="javascript:void(0)">{{tipo}}</a>
+    </li>
+</ul>
+{% for field, errors in form.errors.items() %}
+<div class="alert alert-danger">
+    {{ ', '.join(errors) }}
+</div>
+{% endfor %}
+
+<form class="form-horizontal" action="" method="post">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <div class="control-group">
+            <div class="control-label">
+                {{ form.iden }}
+                <label for="nombre">{{ form.titulo.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.titulo }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.preguntas.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.preguntas }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.opciones.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.opciones }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.respuestas.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.respuestas(size=120) }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.suma.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.suma }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.resta.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.resta }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.bondad.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.bondad }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="control-group">
+            <div class="controls">
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a class="btn btn-danger" href="{{ url_for('menu') }}" role="button">Cancelar</a>
+            </div>
+        </div>        
+    </fieldset>
+</form>
+{% endblock %}

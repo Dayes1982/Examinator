@@ -1,0 +1,58 @@
+{% block head %}
+    {% block script %}{% endblock %}
+    <link href="/admin/static/bootstrap/bootstrap2/swatch/default/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/static/bootstrap/bootstrap2/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/admin/static/admin/css/bootstrap2/admin.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 4px;
+        }
+    </style>
+    <link href="/admin/static/vendor/select2/select2.css" rel="stylesheet">
+    <link href="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs2.css" rel="stylesheet">
+    
+    <script type=text/javascript src="{{url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
+    <title>Examinator</title>
+{% endblock %}
+{% block title %}
+<body data-new-gr-c-s-check-loaded="14.1049.0" data-gr-ext-installed="">
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="/admin">Examinator</a>
+                {% if current_user.is_anonymous %}                    
+                {% else %}
+                    {% if current_user.administrador == True %}
+                    <ul class="nav">
+                        <li>
+                            <a href="{{ url_for('admin.index') }}">Administrar</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <ul class="nav pull-right">
+                        <li>
+                            <a href="{{ url_for('logout') }}">Salir</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            
+            </div>
+        </div>
+{% endblock %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+
+ <div class="alert alert-success">
+        <a href="/menu" class="close" data-dismiss="alert">x</a>
+            {{ message }}
+</div> 
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% block content %}
+{% endblock %}
+    </div>
+</body>

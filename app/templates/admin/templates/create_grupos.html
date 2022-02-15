@@ -1,0 +1,62 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<ul class="nav nav-tabs">
+    <li>
+        <a href="/admin/grupos/">Lista</a>
+    </li>
+    <li class="active">
+        <a href="javascript:void(0)">Crear</a>
+    </li>
+</ul>
+<form action="" method="POST" class="admin-form form-horizontal" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {% if mensaje != "" %}
+        <p style="color:blue;">{{ mensaje }}</p> 
+    {% endif %}
+    {% for error in form.nombre.errors %}
+        <p style="color:red;">{{ error }}</p>  
+    {% endfor %}
+    <fieldset>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.nombre.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.nombre(size=25) }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.imagenDerecha.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.imagenDerecha }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nombre">{{ form.imagenIzquierda.label }}
+                </label>
+            </div>
+            <div class="controls">
+                <div>
+                    {{ form.imagenIzquierda }}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" value="Salvar">
+                <a href="/admin/grupos/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
